@@ -76,13 +76,13 @@ const reportTasks = () => {
       ? fs.readFileSync(completedFilePath, "utf8").trim().split("\n")
       : [];
 
-    console.log(`Pending: ${pendingTasks.length}`);
+    console.log(`Pending : ${pendingTasks.length}`);
     pendingTasks.forEach((task, index) => {
       const [priority, ...description] = task.split(" ");
       console.log(`${index + 1}. ${description.join(" ")} [${priority}]`);
     });
 
-    console.log(`\nCompleted: ${completedTasks.length}`);
+    console.log(`\nCompleted : ${completedTasks.length}`);
     completedTasks.forEach((task, index) => {
       console.log(`${index + 1}. ${task}`);
     });
