@@ -54,12 +54,13 @@ const markTaskAsDone = (index) => {
       const task = tasks[index];
       tasks.splice(index, 1);
       fs.writeFileSync(taskFilePath, tasks.join("\n") + "\n");
-      fs.appendFileSync(completedFilePath, task.split(" ").slice(1).join(" ") + "\n");
+      fs.appendFileSync(
+        completedFilePath,
+        task.split(" ").slice(1).join(" ") + "\n"
+      );
       console.log("Marked item as done.");
     } else {
-      console.log(
-        `Error: no incomplete item with index #${index + 1} exists.`
-      );
+      console.log(`Error: no incomplete item with index #${index + 1} exists.`);
     }
   } else {
     console.log("There are no pending tasks!");
@@ -99,7 +100,7 @@ switch (command) {
     if (priority && description) {
       addTask(priority, description);
     } else {
-      console.log("Error: Missing priority or description. Nothing added!");
+      console.log("Error: Missing tasks string. Nothing added!");
     }
     break;
 
@@ -126,13 +127,13 @@ switch (command) {
     break;
 
   case "help":
-    console.log(`Usage :-
-$ ./task add [priority] "[description]"    # Add a new item with priority [priority] and text "[description]" to the list
-$ ./task ls                               # Show incomplete priority list items sorted by priority in ascending order
-$ ./task del [index]                      # Delete the incomplete item with the given [index]
-$ ./task done [index]                     # Mark the incomplete item with the given [index] as complete
-$ ./task help                             # Show usage
-$ ./task report                           # Generate a report`);
+    console.log(`Usage:
+$ ./task add 2 "hello world"    # Add a new item with priority 2 and text "hello world" to the list
+$ ./task ls                      # Show incomplete priority list items sorted by priority in ascending order
+$ ./task del INDEX               # Delete the incomplete item with the given index
+$ ./task done INDEX              # Mark the incomplete item with the given index as complete
+$ ./task help                    # Show usage
+$ ./task report                  # Statistics`);
     break;
 
   case "report":
@@ -140,6 +141,13 @@ $ ./task report                           # Generate a report`);
     break;
 
   default:
-    console.log("Invalid command. Use './task help' to see usage.");
+    const usage = `Usage:
+$ ./task add 2 "hello world"     # Add a new item with priority 2 and text "hello world" to the list
+$ ./task ls                      # Show incomplete priority list items sorted by priority in ascending order
+$ ./task del INDEX               # Delete the incomplete item with the given index
+$ ./task done INDEX              # Mark the incomplete item with the given index as complete
+$ ./task help                    # Show usage
+$ ./task report                  # Statistics`;
+    console.log(usage);
     break;
 }
